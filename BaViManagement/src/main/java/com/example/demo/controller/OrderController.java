@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.BillDto;
 import com.example.demo.dto.OrderDto;
+import com.example.demo.dto.OrderInfoDto;
 import com.example.demo.entity.Order;
 import com.example.demo.service.OrderService;
 
@@ -36,26 +37,34 @@ public class OrderController {
 
 	// GET A LIST OF ORDER
 	@GetMapping(value = "")
-	public List<Order> listAll() {
+	public List<OrderInfoDto> listAll() {
 		return orderService.listAll();
 	}
 
 	// GET AN ORDER
 	@GetMapping(value = "/{id}")
-	public Order getAnOrder(@PathVariable (value = "id")int id) {
+	public OrderInfoDto getAnOrder(@PathVariable(value = "id") int id) {
 		return orderService.getAnOrder(id);
 	}
 
 	// DELETE AN ORDER
 	@DeleteMapping(value = "/{id}")
-	public void deleteAnOrder(@PathVariable("id")Integer id) {
+	public void deleteAnOrder(@PathVariable("id") Integer id) {
 		orderService.deleteOrder(id);
 	}
-	
-	
+
+	// GET BILL BY ORDER ID
 	@GetMapping(value = "/bill/{id}")
-	public  List<BillDto> getBill(@PathVariable(value = "id") Integer id) {
+	public List<BillDto> getBill(@PathVariable(value = "id") Integer id) {
 		return orderService.getBill(id);
+	}
+
+	// DELETE BILL IN ORDER
+	@DeleteMapping(value = "/{orderID}/{itemID}")
+	public void deteteAnItemInOrder(@PathVariable(value = "orderID") Integer orderId,
+			@PathVariable(value = "itemID") Integer itemID) {
+		
+		orderService.deleteABill(orderId, itemID);
 	}
 
 }

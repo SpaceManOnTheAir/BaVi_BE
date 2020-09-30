@@ -63,5 +63,20 @@ public class ItemService {
 	public void deleteAnItem(int id) {
 		itemRepo.deleteById(id);
 	}
+	public List<ItemDto> getAllItem(){
+		return itemRepo.getAllItem();
+	}
+	
+	public ItemDto getAnItemDto(int id) {
+		return itemRepo.getItemDto(id);
+	}
+	
+	//	get Item by Sub ID
+	public List<ItemDto> getItemBySub(int id) {
+		return itemRepo.getItemBySub(id);
+	}
+	
+	
+	
 	
 }

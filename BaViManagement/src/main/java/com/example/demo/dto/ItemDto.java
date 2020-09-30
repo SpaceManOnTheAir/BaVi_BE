@@ -9,8 +9,9 @@ public class ItemDto {
 	private String photos;
 	private Integer subCategory_ID;
 
-	public ItemDto(String name, String description, Double price, String photos, Integer subCategory_ID) {
+	public ItemDto(Integer id,String name, String description, Double price, String photos, Integer subCategory_ID) {
 		super();
+		this.id=id;
 		this.name = name;
 		this.description = description;
 		this.price = price;

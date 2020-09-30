@@ -50,6 +50,7 @@ public class Item {
 		this.name = itemDto.getName();
 		this.description = itemDto.getDescription();
 		this.price = itemDto.getPrice();
+		this.photos= itemDto.getPhotos();
 		this.subCategory_ID = subCategory;
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ItemDto;
@@ -33,13 +34,13 @@ public class ItemController {
 	}
 	
 	@GetMapping(value = "")
-	public List<Item> listAllItem(){
-		return itemService.listAll();
+	public List<ItemDto> listAllItem(){
+		return itemService.getAllItem();
 	}
 	
 	@GetMapping(value = "/{id}")
-	public Item getAnItem(@PathVariable(value = "id") Integer id){
-		return itemService.getAnItem(id);
+	public ItemDto getAnItem(@PathVariable(value = "id") Integer id){
+		return itemService.getAnItemDto(id);
 	}
 	
 	@PutMapping(value = "/{id}")
@@ -50,6 +51,14 @@ public class ItemController {
 	@DeleteMapping(value="/{id}")
 	public void deleteAnItem(@PathVariable(value = "id") Integer id){
 		itemService.deleteAnItem(id);
+	}
+	
+	//	GET ITEM BY SUB CATEGORY
+	
+	
+	@GetMapping("/subCategory")
+	public List<ItemDto> getAnItemByID(@RequestParam Integer id){
+		return itemService.getItemBySub(id);
 	}
 
 

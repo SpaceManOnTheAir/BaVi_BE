@@ -5,16 +5,14 @@ import java.util.List;
 
 public class OrderDto {
 	private int id;
-	private int order_no;
 	private Date order_date;
 	private Integer table_id;
 	private List<PurchasedItemDto> items;
 	
 	
-	public OrderDto(int id, int order_no, Date order_date, Integer table_id, List<PurchasedItemDto> items) {
+	public OrderDto(int id, Date order_date, Integer table_id, List<PurchasedItemDto> items) {
 		super();
 		this.id = id;
-		this.order_no = order_no;
 		this.order_date = order_date;
 		this.table_id = table_id;
 		this.items = items;
@@ -28,12 +26,7 @@ public class OrderDto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getOrder_no() {
-		return order_no;
-	}
-	public void setOrder_no(int order_no) {
-		this.order_no = order_no;
-	}
+
 	public Date getOrder_date() {
 		return order_date;
 	}

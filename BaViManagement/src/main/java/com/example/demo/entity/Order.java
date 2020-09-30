@@ -12,11 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.demo.dto.OrderDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @javax.persistence.Table(name="_order")
@@ -25,10 +28,12 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "order_no")
 	private int order_no;
-	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="dd/MM/yyyy") 
 	@Column(name = "order_date")
 	private Date order_date;
 	
@@ -62,11 +67,7 @@ public class Order {
 	
 	public Order(OrderDto orderDto, Table table_id) {
 		super();
-		this.order_no = orderDto.getOrder_no();
-		
-		Date TODAY=  DateUtils.truncate(new Date() , Calendar.DAY_OF_MONTH);
-		orderDto.setOrder_date(TODAY);
-		this.order_date = orderDto.getOrder_date();
+		this.order_date = new Date();
 		this.table_id = table_id;
 	}
 

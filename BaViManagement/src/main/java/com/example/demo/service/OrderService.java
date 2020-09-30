@@ -12,6 +12,7 @@ import com.example.demo.dao.OrderRepository;
 import com.example.demo.dao.TableRepository;
 import com.example.demo.dto.BillDto;
 import com.example.demo.dto.OrderDto;
+import com.example.demo.dto.OrderInfoDto;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
 import com.example.demo.entity.Table;
@@ -32,12 +33,13 @@ public class OrderService {
 	@Autowired
 	private ItemRepository itemRepo;
 
-	public List<Order> listAll() {
-		return orderRepo.findAll();
+	public List<OrderInfoDto> listAll() {
+		return orderRepo.listOrderInfo();
 	}
 
-	public Order getAnOrder(int id) {
-		return orderRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Order id"));
+	public OrderInfoDto getAnOrder(int id) {
+		orderRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid Order id"));
+		return orderRepo.getOrderInfo(id);
 	}
 
 	public Order createAnOrder(OrderDto orderDto) {
@@ -49,8 +51,7 @@ public class OrderService {
 			aTable = tableRepo.findById(tableID).get();
 
 		Order anOrder = new Order(orderDto, aTable);
-		
-		
+
 		List<OrderDetail> listOrderDetails = new ArrayList<>();
 		Double totalPrice = 0.0;
 		for (int i = 0; i < orderDto.getItems().size(); i++) {
@@ -85,4 +86,59 @@ public class OrderService {
 	public List<BillDto> getBill(Integer id) {
 		return orderRepo.getBill(id);
 	}
+
+	// Delete items in order list
+
+	public void deleteABill(Integer orderId, Integer itemId) {
+		getAnOrder(orderId);
+//		orderDetailRepo.findById(itemId)
+//				.orElseThrow(() -> new IllegalArgumentException("Cannot find this item id= " + itemId));
+
+		// GET A BILLDTO LIST
+		Order order = orderRepo.findById(orderId).get();
+		 List<OrderDetail> orderDetail = order.getOrderDetails();
+		 
+		
+	
+			Double deleteTotal=0.0;
+
+			for (OrderDetail item : orderDetail) {
+				System.out.println(item.getItems().getId());
+				if (item.getId()== itemId) {
+					deleteTotal = item.getPrice() * item.getQuantity();
+					System.out.println(item.getPrice());
+					orderDetail.remove(item);
+					orderDetailRepo.deleteById(item.getId());
+//					minusTotalPrice(orderId,deleteTotal);
+//					Order update = orderRepo.findById(orderId).get();
+//					update.setId(update.getId());
+//					update.setOrderDetails(deleteBill);
+//					//	 UPDATE TOTAL PRICE
+//					update.setTotalPrice(update.getTotalPrice() - deleteTotal);
+//					orderRepo.save(update);
+					
+					break;
+				}
+			}
+//			Order update = orderRepo.findById(orderId).get();
+//			update.setId(update.getId());
+//			update.setOrderDetails(deleteBill);
+//			//	 UPDATE TOTAL PRICE
+//			update.setTotalPrice(update.getTotalPrice() - deleteTotal);
+//			orderRepo.save(update);
+			
+			
+			order.setOrderDetails(orderDetail);
+			order.setTotalPrice(order.getTotalPrice() - deleteTotal);
+			orderRepo.save(order);
+			
+
+	}
+
+	public Order minusTotalPrice(Integer orderId, double newPrice) {
+		Order updateOrder = orderRepo.findById(orderId).get();
+		updateOrder.setTotalPrice(updateOrder.getTotalPrice() - newPrice);
+		return orderRepo.save(updateOrder);
+	}
+
 }
