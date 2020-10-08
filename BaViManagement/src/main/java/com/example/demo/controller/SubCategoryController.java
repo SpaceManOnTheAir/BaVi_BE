@@ -31,7 +31,7 @@ import com.example.demo.service.MainService;
 import com.example.demo.service.SubCategoryService;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/sub")
 public class SubCategoryController {
 
 	@Autowired
@@ -41,19 +41,26 @@ public class SubCategoryController {
 	private SubCategoryService subService;
 
 	// GET A LIST OF SUB CATEGORY BY MAIN CATEGORY ID
-	@GetMapping("subCategories/{idMain}")
+	@GetMapping("/{idMain}")
 	public List<SubCategory> listAllCategory(@PathVariable("idMain") Integer idMain) {
 		return mainService.getAllSub(idMain);
 	}
+	
+	// GET ALL LIST SUB
+	@GetMapping("")
+	public List<SubCategory> listAllSUB() {
+		return subService.listAllSub();
+	}
+	
 
-	// GET A SUB CATEGORY
-	@GetMapping("subCategory/{id}")
-	public SubCategory getASubCategory(@PathVariable("idMain") Integer idMain, @PathVariable("id") Integer id) {
+	// GET A SUB CATEGORY BY MAIN ID
+	@GetMapping("sub/{id}")
+	public SubCategory getASubCategory( @PathVariable("id") Integer id) {
 		return subService.getASubCategory(id);
 	}
 
 	// CREATE A SUB CATEGORY
-	@PostMapping(value = "subCategory", consumes = "application/json")
+	@PostMapping(value = "", consumes = "application/json")
 	public SubCategory createASubCategory(@RequestBody SubDto aSub, BindingResult result) {
 		if (result.hasErrors())
 			throw new IllegalArgumentException("Invalid data SUB CATEGORY");
@@ -63,8 +70,8 @@ public class SubCategoryController {
 	}
 
 	// UPDATE A SUB CATEGORY
-	@PutMapping("subCategory/{id}")
-	public SubCategory updateSubCategory(@PathVariable("idMain") Integer idMain, @PathVariable("id") Integer id,
+	@PutMapping("/{id}")
+	public SubCategory updateSubCategory(@PathVariable("id") Integer id,
 			@RequestBody @Valid SubDto aSub, BindingResult result) {
 		if (result.hasErrors())
 			throw new IllegalArgumentException("Invalid data SUB CATEGORY");
@@ -72,8 +79,8 @@ public class SubCategoryController {
 	}
 
 	// DELETE A SUB CATEGORY
-	@DeleteMapping("/{idMain}/subCategory/{id}")
-	public void deleteSubCategory(@PathVariable("idMain") Integer idMain, @PathVariable("id") Integer id) {
+	@DeleteMapping("/{id}")
+	public void deleteSubCategory( @PathVariable("id") Integer id) {
 		try {
 			subService.deleteSubCategory(id);
 		} catch (Exception e) {

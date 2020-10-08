@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,12 +21,19 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	public List<BillDto> getBill(Integer id);
 	
 	
-	@Query("select new com.example.demo.dto.OrderInfoDto(o.id, o.order_no, o.order_date, tb.id,o.totalPrice) "
+	@Query("select new com.example.demo.dto.OrderInfoDto(o.id, o.order_no, o.order_date, tb.id,o.totalPrice,o.status) "
 			+ "from Order o join o.table_id tb")
 	public List<OrderInfoDto> listOrderInfo();
 	
-	@Query("select new com.example.demo.dto.OrderInfoDto(o.id, o.order_no, o.order_date, tb.id,o.totalPrice) "
+	@Query("select new com.example.demo.dto.OrderInfoDto(o.id, o.order_no, o.order_date, tb.id,o.totalPrice,o.status) "
 			+ "from Order o join o.table_id tb "
 			+ "where o.id= :id")
 	public OrderInfoDto getOrderInfo(Integer id);
+	
+	
+	@Query("select new com.example.demo.dto.OrderInfoDto(o.id, o.order_no, o.order_date, tb.id,o.totalPrice,o.status) "
+			+ "from Order o join o.table_id tb "
+			+ "where o.order_date BETWEEN :stDate AND :edDate")
+//	@Query(value = "select * from _order WHERE order_date BETWEEN :stDate AND :edDate", nativeQuery = true)
+	public List<OrderInfoDto> listOrderInfoFromDateToDate(Date stDate,Date edDate);
 }

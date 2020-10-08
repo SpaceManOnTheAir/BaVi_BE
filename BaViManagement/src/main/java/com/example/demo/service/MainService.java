@@ -33,6 +33,14 @@ public class MainService {
 		return mainRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("No main Category found with id=" + id));
 	}
 	
+	public MainCategory update(MainCategory main) {
+		MainCategory savedMain =findByID(main.getId());
+		savedMain.setName(main.getName());
+		savedMain.setDescription(main.getDescription());
+		return mainRepo.save(savedMain);
+		
+	}
+	
 	
 	
 }

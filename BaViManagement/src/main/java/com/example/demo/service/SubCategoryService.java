@@ -62,7 +62,7 @@ public class SubCategoryService {
 		return subCateRepo.save(aSubCategory);
 	}
 
-	public List<SubCategory> listAllMain() {
+	public List<SubCategory> listAllSub() {
 		return subCateRepo.findAll();
 	}
 

@@ -9,6 +9,10 @@ public class ItemDto {
 	private String photos;
 	private Integer subCategory_ID;
 
+	public ItemDto() {
+		super();
+	}
+
 	public ItemDto(Integer id,String name, String description, Double price, String photos, Integer subCategory_ID) {
 		super();
 		this.id=id;

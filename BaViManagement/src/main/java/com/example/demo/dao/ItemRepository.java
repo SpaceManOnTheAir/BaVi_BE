@@ -25,4 +25,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 			+ "from SubCategory sb join sb.itemIDs it "
 			+ "where sb.id= :id")
 	public List<ItemDto> getItemBySub( Integer id);
+	
+	@Query("select new com.example.demo.dto.ItemDto(it.id, it.name, it.description, it.price, it.photos, sb.id) "
+			+ "from SubCategory sb join sb.itemIDs it join sb.mainCategory_ID m "
+			+ "where m.id= :id")
+	public List<ItemDto> getItemByMain( Integer id);
 }

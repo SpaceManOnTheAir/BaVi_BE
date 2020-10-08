@@ -30,9 +30,9 @@ public class Order {
 	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "order_no")
-	private int order_no;
+	private String order_no;
 
-	@Temporal(TemporalType.TIMESTAMP)
+//	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="dd/MM/yyyy") 
 	@Column(name = "order_date")
 	private Date order_date;
@@ -47,6 +47,7 @@ public class Order {
 	private List<OrderDetail> orderDetails;
 	
 	private Double totalPrice;
+	private Status status;
 
 
 	public Double getTotalPrice() {
@@ -57,7 +58,7 @@ public class Order {
 		this.totalPrice = totalPrice;
 	}
 
-	public Order(int order_no, Date order_date, Table table_id, List<OrderDetail> orderDetails) {
+	public Order(String order_no, Date order_date, Table table_id, List<OrderDetail> orderDetails) {
 		super();
 		this.order_no = order_no;
 		this.order_date = order_date;
@@ -68,9 +69,18 @@ public class Order {
 	public Order(OrderDto orderDto, Table table_id) {
 		super();
 		this.order_date = new Date();
+		this.status= Status.UNPAID;
 		this.table_id = table_id;
 	}
 
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public Order() {
 		super();
@@ -87,12 +97,12 @@ public class Order {
 	}
 
 
-	public int getOrder_no() {
+	public String getOrder_no() {
 		return order_no;
 	}
 
 
-	public void setOrder_no(int order_no) {
+	public void setOrder_no(String order_no) {
 		this.order_no = order_no;
 	}
 

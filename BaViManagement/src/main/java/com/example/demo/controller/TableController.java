@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class TableController {
 
 	// CREATE A TABLE
 	@PostMapping(value = "")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Table createATable(@RequestBody Table aTable, BindingResult result) {
 		if (result.hasErrors())
 			throw new IllegalArgumentException("Invalid Table data");
@@ -33,6 +35,7 @@ public class TableController {
 	
 	// UPDATE A TABLE
 	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Table updateATable(@PathVariable (value = "id") Integer id,@RequestBody Table aTable, BindingResult result) {
 		if (result.hasErrors())
 			throw new IllegalArgumentException("Invalid Table data");
@@ -53,6 +56,7 @@ public class TableController {
 
 	// DELETE A TABLE
 	@DeleteMapping(value = "/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteATable(@PathVariable("id")Integer id) {
 		tableService.deleteTable(id);
 	}

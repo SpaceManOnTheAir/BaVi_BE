@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer
 		registry
 			.addMapping("/**")
 			.allowedMethods("GET","POST","PUT","DELETE","HEAD","OPTIONS")
-			//.allowedHeaders("header1", "header2", "header3")
+//			.allowedHeaders("header1", "header2", "header3")
 			//.exposedHeaders("header1", "header2")
 			.allowCredentials(true)
 			.maxAge(3600);

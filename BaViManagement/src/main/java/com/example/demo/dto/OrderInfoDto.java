@@ -2,26 +2,37 @@ package com.example.demo.dto;
 
 import java.util.Date;
 
+import com.example.demo.entity.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class OrderInfoDto {
 
 	private int id;
-	private int order_no;
+	private String order_no;
 	@JsonFormat(pattern="dd/MM/yyyy") 
 	private Date order_date;
 	private Integer table_id;
 	private Double totalprice;
+	private Status status;
 
 
 
-	public OrderInfoDto(int id, int order_no, Date order_date, Integer table_id, Double totalprice) {
+	public OrderInfoDto(int id, String order_no, Date order_date, Integer table_id, Double totalprice, Status status) {
 		super();
 		this.id = id;
 		this.order_no = order_no;
 		this.order_date = order_date;
 		this.table_id = table_id;
 		this.totalprice = totalprice;
+		this.status= status;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Double getTotalprice() {
@@ -40,11 +51,11 @@ public class OrderInfoDto {
 		this.id = id;
 	}
 
-	public int getOrder_no() {
+	public String getOrder_no() {
 		return order_no;
 	}
 
-	public void setOrder_no(int order_no) {
+	public void setOrder_no(String order_no) {
 		this.order_no = order_no;
 	}
 
