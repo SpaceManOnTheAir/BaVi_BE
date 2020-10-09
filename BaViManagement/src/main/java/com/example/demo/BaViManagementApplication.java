@@ -34,7 +34,7 @@ public class BaViManagementApplication  implements CommandLineRunner{
 //		admin.setLastName("Nguyen");
 //	
 //		admin.setUsername("admin");
-//		admin.setPassword("admin");
+//		admin.setPassword("password");
 //		admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
 //		adminService.signup(admin);
 	}

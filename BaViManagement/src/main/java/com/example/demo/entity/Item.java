@@ -24,7 +24,7 @@ public class Item {
 	private String name;
 
 	@Lob
-	@Column(name = "item_description", nullable = false)
+	@Column(name = "item_description", nullable = false, length = 255)
 	private String description;
 
 	@Column(name = "item_price", nullable = true)
@@ -35,7 +35,8 @@ public class Item {
 	@JsonBackReference
 	@JoinColumn(name = "subCategory_ID", nullable = false)
 	private SubCategory subCategory_ID;
-
+	
+	@Column(length = 500)
 	private String photos;
 
 	public Item(String name, String description, Double price, SubCategory subCategory_ID) {
